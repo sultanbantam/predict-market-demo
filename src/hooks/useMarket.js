@@ -10,7 +10,10 @@ import { USDC_DECIMALS } from './useUSDC';
  */
 export const useCreateMarket = () => {
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract();
-  const { isLoading: isConfirming, isSuccess, data: receipt } = useWaitForTransactionReceipt({ hash });
+  const { isLoading: isConfirming, isSuccess, data: receipt } = useWaitForTransactionReceipt({ 
+    hash,
+    query: { enabled: !!hash }
+  });
 
   const createMarket = (question, category, resolutionTime) => {
     writeContract({
@@ -60,7 +63,10 @@ export const useMarketInfo = (marketAddress) => {
  */
 export const useBuyShares = (marketAddress) => {
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract();
-  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
+    hash,
+    query: { enabled: !!hash }
+  });
 
   const buyShares = (isYes, amountUSDC) => {
     writeContract({
@@ -79,7 +85,10 @@ export const useBuyShares = (marketAddress) => {
  */
 export const useClaimWinnings = (marketAddress) => {
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract();
-  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
+    hash,
+    query: { enabled: !!hash }
+  });
 
   const claimWinnings = () => {
     writeContract({
