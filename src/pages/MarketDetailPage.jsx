@@ -1,12 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PriceChart from '../components/PriceChart';
 import TradeModal from '../components/TradeModal';
 import CommentSection from '../components/CommentSection';
+import { useMarketInfo } from '../hooks/useMarket';
+import { formatUnits } from 'viem';
+import { USDC_DECIMALS } from '../hooks/useUSDC';
 
-const MarketDetailPage = ({ market, onBack }) => {
+const MarketDetailPage = ({ market: initialMarket, onBack }) => {
   const [showTrade, setShowTrade] = useState(false);
   const [chartDays, setChartDays] = useState(7);
   const [copied, setCopied] = useState(false);
+
+  // Fetch dynamic data from blockchain
+  const { marketInfo, isLoading: isFetching, refetch } = useMarketInfo(initialMarket?.address);
+  
+  // Merge initial data (title/icon) with live data (prices/volume)
+  const market = marketInfo ? {
+    ...initialMarket,
+    ...marketInfo,
+    volume: `$${parseFloat(formatUnits(marketInfo.totalPool, USDC_DECIMALS)).toLocaleString()}`
+  } : initialMarket;
 
   if (!market) return null;
 
@@ -22,7 +35,16 @@ const MarketDetailPage = ({ market, onBack }) => {
 
   return (
     <div className="animate-fade-in">
-      {showTrade && <TradeModal market={market} onClose={() => setShowTrade(false)} />}
+      {showTrade && (
+        <TradeModal 
+          market={market} 
+          onClose={() => setShowTrade(false)} 
+          onSuccess={() => {
+            console.log("Transaction success! Refetching market data...");
+            refetch?.();
+          }}
+        />
+      )}
 
       {/* Back */}
       <button className="btn btn-secondary flex items-center gap-2"

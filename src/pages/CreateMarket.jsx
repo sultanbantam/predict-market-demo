@@ -3,11 +3,13 @@ import { useAuth } from '../context/AuthContext';
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { MarketFactory_ABI } from '../lib/abis';
 import { CONTRACT_ADDRESSES } from '../lib/contracts';
+import { sepolia } from '../lib/wagmiConfig';
 
 const CATEGORIES = ['Crypto', 'Politics', 'Economics', 'Sports', 'Tech', 'Pop Culture', 'Science'];
 
 const CreateMarket = ({ onNavigate }) => {
-  const { user, isWalletConnected } = useAuth();
+  const { user, isWalletConnected, chainId, switchNetwork } = useAuth();
+  const isWrongNetwork = isWalletConnected && chainId !== sepolia.id;
   const [step, setStep] = useState('form'); // form | preview | shared
   const [form, setForm] = useState({
     title: '',
@@ -170,12 +172,27 @@ const CreateMarket = ({ onNavigate }) => {
                   </p>
                 </Field>
 
-                <button type="submit"
-                  className="btn btn-primary"
-                  disabled={!isWalletConnected}
-                  style={{ width: '100%', padding: '0.85rem', borderRadius: 'var(--radius-sm)', marginTop: '0.5rem', opacity: isWalletConnected ? 1 : 0.5, cursor: isWalletConnected ? 'pointer' : 'not-allowed' }}>
-                  {isWalletConnected ? '🚀 Create Market' : '🔗 Connect Wallet First'}
-                </button>
+                {isWrongNetwork ? (
+                  <div style={{ textAlign: 'center', marginTop: '0.5rem' }}>
+                    <p style={{ color: 'var(--color-no)', fontSize: '0.85rem', marginBottom: '1rem' }}>
+                      ⚠️ You are connected to the wrong network. Please switch to Sepolia.
+                    </p>
+                    <button 
+                      type="button"
+                      className="btn btn-primary" 
+                      onClick={switchNetwork}
+                      style={{ width: '100%', padding: '0.85rem', borderRadius: 'var(--radius-sm)' }}>
+                      Switch to Ethereum Sepolia
+                    </button>
+                  </div>
+                ) : (
+                  <button type="submit"
+                    className="btn btn-primary"
+                    disabled={!isWalletConnected || isPending || isConfirming}
+                    style={{ width: '100%', padding: '0.85rem', borderRadius: 'var(--radius-sm)', marginTop: '0.5rem', opacity: isWalletConnected ? 1 : 0.5, cursor: isWalletConnected ? 'pointer' : 'not-allowed' }}>
+                    {isPending ? 'Signing...' : isConfirming ? 'Deploying...' : isWalletConnected ? '🚀 Create Market' : '🔗 Connect Wallet First'}
+                  </button>
+                )}
               </div>
             </form>
           </>

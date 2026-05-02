@@ -1,12 +1,14 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { useAccount, useConnect, useDisconnect, useBalance } from 'wagmi';
+import { useAccount, useConnect, useDisconnect, useBalance, useSwitchChain } from 'wagmi';
 import { injected, walletConnect, coinbaseWallet } from 'wagmi/connectors';
+import { sepolia } from '../lib/wagmiConfig';
 
 const AuthContext = createContext({
   user: null, walletAddress: null, isWalletConnected: false,
   usdcBalance: '0.00',
   login: () => {}, signup: () => {}, logout: () => {},
   connectWallet: async () => {}, disconnectWallet: () => {},
+  chainId: null, switchNetwork: () => {},
 });
 
 // Mock influencer DB (sebelum backend nyata)
@@ -30,9 +32,10 @@ export const AuthProvider = ({ children }) => {
   const [influencer, setInfluencer] = useState(null); // logged-in influencer profile
 
   // Wagmi hooks — actual Web3 state
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, chainId } = useAccount();
   const { connect } = useConnect();
   const { disconnect } = useDisconnect();
+  const { switchChain } = useSwitchChain();
 
   // Mock USDC balance (will be replaced with contract read in Phase 5)
   const [usdcBalance] = useState('1,000.00');
@@ -94,6 +97,8 @@ export const AuthProvider = ({ children }) => {
       usdcBalance,
       login, signup, logout,
       connectWallet, disconnectWallet,
+      chainId,
+      switchNetwork: () => switchChain({ chainId: sepolia.id }),
     }}>
       {children}
     </AuthContext.Provider>

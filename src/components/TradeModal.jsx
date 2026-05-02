@@ -5,7 +5,7 @@ import { useUSDCApprove, useUSDCAllowance } from '../hooks/useUSDC';
 import { useBuyShares } from '../hooks/useMarket';
 import { IS_DEPLOYED } from '../lib/contracts';
 
-const TradeModal = ({ market, onClose }) => {
+const TradeModal = ({ market, onClose, onSuccess }) => {
   const { isWalletConnected, walletAddress } = useAuth();
   const [showWallet, setShowWallet] = useState(false);
   const [side, setSide] = useState('yes'); // yes | no
@@ -30,6 +30,7 @@ const TradeModal = ({ market, onClose }) => {
   useEffect(() => {
     if (buySuccess) {
       setStatus('success');
+      onSuccess?.(); // Trigger auto-refetch in parent
     }
     if (buyError) {
       setStatus('error');
@@ -63,7 +64,10 @@ const TradeModal = ({ market, onClose }) => {
       approve(market.address, amountUSDC * 100); // Approve a large amount for UX
     } else {
       // Mock flow
-      setTimeout(() => setStatus('success'), 1500);
+      setTimeout(() => {
+        setStatus('success');
+        onSuccess?.();
+      }, 1500);
     }
   };
 
