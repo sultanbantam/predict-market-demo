@@ -19,7 +19,7 @@ const WalletConnectModal = ({ onClose }) => {
         const projectId = import.meta.env.VITE_WC_PROJECT_ID || 'demo';
         connect({ connector: walletConnect({ projectId }) });
       } else if (connectorType === 'coinbase') {
-        connect({ connector: coinbaseWallet({ appName: 'PredictL2' }) });
+        connect({ connector: coinbaseWallet({ appName: 'ApolloView' }) });
       }
     } catch (err) {
       setLocalError(err.message || 'Connection failed.');

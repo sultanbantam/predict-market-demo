@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
       } else if (connectorType === 'walletConnect') {
         connect({ connector: walletConnect({ projectId: 'demo' }) });
       } else if (connectorType === 'coinbase') {
-        connect({ connector: coinbaseWallet({ appName: 'PredictL2' }) });
+        connect({ connector: coinbaseWallet({ appName: 'ApolloView' }) });
       }
       return { success: true };
     } catch (err) {

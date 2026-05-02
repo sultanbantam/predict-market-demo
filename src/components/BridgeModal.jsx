@@ -71,7 +71,7 @@ const BridgeModal = ({ onClose }) => {
               }}>✅</div>
               <h3 style={{ fontWeight: 700, marginBottom: '0.5rem', fontSize: '1.25rem' }}>Bridge Successful!</h3>
               <p className="text-secondary text-sm" style={{ marginBottom: '1.5rem', lineHeight: 1.6 }}>
-                Successfully bridged <strong>${amount} USDC</strong> from {fromNetwork.name} to PredictL2 via LayerZero.
+                Successfully bridged <strong>${amount} USDC</strong> from {fromNetwork.name} to ApolloView via LayerZero.
               </p>
               
               <div style={{ background: 'var(--bg-tertiary)', padding: '0.75rem', borderRadius: 'var(--radius-sm)', marginBottom: '1.5rem', fontSize: '0.8rem', textAlign: 'left' }}>
@@ -136,7 +136,7 @@ const BridgeModal = ({ onClose }) => {
                   fontSize: '1rem', color: 'var(--text-muted)'
                 }}>↓</div>
 
-                {/* To Network (PredictL2) */}
+                {/* To Network (ApolloView) */}
                 <div style={{
                   padding: '1rem', background: 'var(--bg-primary)', border: '1px solid var(--border-color)',
                   borderRadius: 'var(--radius-sm)'
@@ -146,7 +146,7 @@ const BridgeModal = ({ onClose }) => {
                     <div style={{
                       width: '20px', height: '20px', background: 'linear-gradient(135deg, var(--accent-blue), #a78bfa)', borderRadius: '50%'
                     }} />
-                    <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>PredictL2 (Sepolia)</span>
+                    <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>ApolloView (Sepolia)</span>
                   </div>
                 </div>
               </div>
@@ -212,7 +212,7 @@ const BridgeModal = ({ onClose }) => {
                 {status === 'approving' ? 'Approving USDC...' :
                  status === 'bridging' ? 'Initiating LayerZero Tx...' :
                  !isWalletConnected ? '🔗 Connect Wallet to Bridge' :
-                 `Bridge to PredictL2`}
+                 `Bridge to ApolloView`}
                 
                 {status === 'bridging' && (
                   <div style={{

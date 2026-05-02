@@ -17,7 +17,7 @@ const Navbar = ({ activePage, onNavigate, onShowWallet, onShowBridge }) => {
               boxShadow: '0 0 12px rgba(47,128,237,0.5)',
             }} />
             <span className="font-bold text-lg" style={{ letterSpacing: '-0.02em' }}>
-              Predict<span style={{ color: 'var(--accent-blue)' }}>L2</span>
+              Apollo<span style={{ color: 'var(--accent-blue)' }}>View</span>
             </span>
           </a>
 
