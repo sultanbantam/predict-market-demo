@@ -1,0 +1,7 @@
+// AUTO-GENERATED
+export const CONTRACT_ADDRESSES = {
+  USDC: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+  MARKET_FACTORY: "0x01C5a8582ad045fCD246cF1920C06Bda5BA2aD81",
+};
+export const NETWORK = { chainId: 11155111, name: "Ethereum Sepolia" };
+export const IS_DEPLOYED = true;
