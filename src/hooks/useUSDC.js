@@ -42,12 +42,10 @@ export const useUSDCAllowance = (spender) => {
  */
 export const useUSDCApprove = () => {
   const { writeContract, data: txHash, isPending, isError, error } = useWriteContract();
-  // const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
-  //   hash: txHash || undefined,
-  //   query: { enabled: Boolean(txHash) }
-  // });
-  const isConfirming = false;
-  const isSuccess = false;
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
+    hash: txHash || undefined,
+    query: { enabled: Boolean(txHash) }
+  });
 
   const approve = (spender, amountUSDC) => {
     writeContract({
@@ -66,12 +64,10 @@ export const useUSDCApprove = () => {
  */
 export const useUSDCFaucet = () => {
   const { writeContract, data: txHash, isPending, isError, error } = useWriteContract();
-  // const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
-  //   hash: txHash || undefined,
-  //   query: { enabled: Boolean(txHash) }
-  // });
-  const isConfirming = false;
-  const isSuccess = false;
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
+    hash: txHash || undefined,
+    query: { enabled: Boolean(txHash) }
+  });
 
   const claimFaucet = () => {
     // Check if we are using the official Circle USDC (no faucet)

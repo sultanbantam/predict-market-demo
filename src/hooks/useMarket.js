@@ -10,13 +10,10 @@ import { USDC_DECIMALS } from './useUSDC';
  */
 export const useCreateMarket = () => {
   const { writeContract, data: txHash, isPending, isError, error } = useWriteContract();
-  // const { isLoading: isConfirming, isSuccess, data: receipt } = useWaitForTransactionReceipt({ 
-  //   hash: txHash || undefined,
-  //   query: { enabled: Boolean(txHash) }
-  // });
-  const isConfirming = false;
-  const isSuccess = false;
-  const receipt = null;
+  const { isLoading: isConfirming, isSuccess, data: receipt } = useWaitForTransactionReceipt({ 
+    hash: txHash || undefined,
+    query: { enabled: Boolean(txHash) }
+  });
 
   const createMarket = (question, category, resolutionTime) => {
     writeContract({
@@ -66,12 +63,10 @@ export const useMarketInfo = (marketAddress) => {
  */
 export const useBuyShares = (marketAddress) => {
   const { writeContract, data: txHash, isPending, isError, error } = useWriteContract();
-  // const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
     hash: txHash || undefined,
     query: { enabled: Boolean(txHash) }
-  // });
-  const isConfirming = false;
-  const isSuccess = false;
+  });
 
   const buyShares = (isYes, amountUSDC) => {
     writeContract({
@@ -90,12 +85,10 @@ export const useBuyShares = (marketAddress) => {
  */
 export const useClaimWinnings = (marketAddress) => {
   const { writeContract, data: txHash, isPending, isError, error } = useWriteContract();
-  // const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
-  //   hash: txHash || undefined,
-  //   query: { enabled: Boolean(txHash) }
-  // });
-  const isConfirming = false;
-  const isSuccess = false;
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
+    hash: txHash || undefined,
+    query: { enabled: Boolean(txHash) }
+  });
 
   const claimWinnings = () => {
     writeContract({

@@ -21,12 +21,10 @@ const CreateMarket = ({ onNavigate }) => {
   const [copied, setCopied] = useState(false);
 
   const { data: txHash, isPending, writeContract, error: writeError } = useWriteContract();
-  // const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
-  //   hash: txHash || undefined,
-  //   query: { enabled: Boolean(txHash) }
-  // });
-  const isConfirming = false;
-  const isSuccess = false;
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
+    hash: txHash || undefined,
+    query: { enabled: Boolean(txHash) }
+  });
 
   // Handle successful creation
   useEffect(() => {
