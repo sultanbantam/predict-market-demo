@@ -16,10 +16,10 @@ if (rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <WagmiProvider config={wagmiConfig}>
+    {/* <WagmiProvider config={wagmiConfig}> */}
       <QueryClientProvider client={queryClient}>
         <App />
       </QueryClientProvider>
-    </WagmiProvider>
+    {/* </WagmiProvider> */}
   </StrictMode>,
 );
