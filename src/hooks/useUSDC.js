@@ -43,8 +43,8 @@ export const useUSDCAllowance = (spender) => {
 export const useUSDCApprove = () => {
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract();
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
-    hash,
-    query: { enabled: !!hash }
+    hash: hash || undefined,
+    query: { enabled: Boolean(hash) }
   });
 
   const approve = (spender, amountUSDC) => {
@@ -65,8 +65,8 @@ export const useUSDCApprove = () => {
 export const useUSDCFaucet = () => {
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract();
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
-    hash,
-    query: { enabled: !!hash }
+    hash: hash || undefined,
+    query: { enabled: Boolean(hash) }
   });
 
   const claimFaucet = () => {
