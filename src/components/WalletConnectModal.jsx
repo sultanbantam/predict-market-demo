@@ -22,17 +22,17 @@ const WalletConnectModal = ({ onClose }) => {
 
   const handleConnect = (connectorType) => {
     setLocalError('');
-    try {
-      if (connectorType === 'injected') {
-        connect({ connector: injected() });
-      } else if (connectorType === 'walletConnect') {
-        const projectId = import.meta.env.VITE_WC_PROJECT_ID || 'demo';
-        connect({ connector: walletConnect({ projectId }) });
-      } else if (connectorType === 'coinbase') {
-        connect({ connector: coinbaseWallet({ appName: 'ApolloView' }) });
-      }
-    } catch (err) {
-      setLocalError(err.message || 'Connection failed.');
+    // Find the matching connector from the config
+    const connector = connectors.find(c => {
+      const id = c.id.toLowerCase();
+      const type = connectorType.toLowerCase();
+      return id.includes(type) || (type === 'injected' && id === 'metamask');
+    });
+    
+    if (connector) {
+      connect({ connector });
+    } else {
+      setLocalError(`Connector ${connectorType} not found.`);
     }
   };
 
