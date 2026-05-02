@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react';
-import { AuthProvider } from './context/AuthContext';
-import Navbar from './components/Navbar';
-import LivePriceTicker from './components/LivePriceTicker';
-import MarketCard from './components/MarketCard';
-import WalletConnectModal from './components/WalletConnectModal';
-import BridgeModal from './components/BridgeModal';
-import InfluencersPage from './pages/InfluencersPage';
-import InfluencerProfilePage from './pages/InfluencerProfilePage';
-import InfluencerLogin from './pages/InfluencerLogin';
-import InfluencerSignup from './pages/InfluencerSignup';
-import InfluencerDashboard from './pages/InfluencerDashboard';
-import CreateMarket from './pages/CreateMarket';
-import PortfolioPage from './pages/PortfolioPage';
-import MarketDetailPage from './pages/MarketDetailPage';
+import { useState, useEffect } from 'react';
+// import { AuthProvider } from './context/AuthContext';
+// import Navbar from './components/Navbar';
+// import LivePriceTicker from './components/LivePriceTicker';
+// import MarketCard from './components/MarketCard';
+// import WalletConnectModal from './components/WalletConnectModal';
+// import BridgeModal from './components/BridgeModal';
+// import InfluencersPage from './pages/InfluencersPage';
+// import InfluencerProfilePage from './pages/InfluencerProfilePage';
+// import InfluencerLogin from './pages/InfluencerLogin';
+// import InfluencerSignup from './pages/InfluencerSignup';
+// import InfluencerDashboard from './pages/InfluencerDashboard';
+// import CreateMarket from './pages/CreateMarket';
+// import PortfolioPage from './pages/PortfolioPage';
+// import MarketDetailPage from './pages/MarketDetailPage';
 // import { useMarkets } from './hooks/useMarkets';
 import './App.css';
 
@@ -108,28 +109,10 @@ function AppContent() {
   };
 
   const renderPage = () => {
-    switch (page) {
-      case 'markets':
-        return <MarketsPage onViewMarket={(m) => { setSelectedMarket(m); navigate('market-detail'); }} />;
-      case 'market-detail':
-        return <MarketDetailPage market={selectedMarket} onBack={() => navigate('markets')} />;
-      case 'influencers':
-        return <InfluencersPage onViewProfile={(inf) => { setSelectedInfluencer(inf); navigate('profile'); }} />;
-      case 'profile':
-        return <InfluencerProfilePage influencer={selectedInfluencer} onBack={() => navigate('influencers')} />;
-      case 'portfolio':
-        return <PortfolioPage onNavigate={navigate} />;
-      case 'influencer-login':
-        return <InfluencerLogin onNavigate={navigate} />;
-      case 'influencer-signup':
-        return <InfluencerSignup onNavigate={navigate} />;
-      case 'influencer-dashboard':
-        return <InfluencerDashboard onNavigate={navigate} />;
-      case 'create-market':
-        return <CreateMarket onNavigate={navigate} />;
-      default:
-        return <MarketsPage onViewMarket={(m) => { setSelectedMarket(m); navigate('market-detail'); }} />;
-    }
+    return <div style={{ color: 'white', textAlign: 'center', marginTop: '100px' }}>
+      <h2>System Isolated</h2>
+      <p>All components disabled for tracking.</p>
+    </div>;
   };
 
   const activeNavPage = ['influencer-login', 'influencer-signup', 'influencer-dashboard', 'create-market', 'profile'].includes(page)
