@@ -28,81 +28,9 @@ export const DUMMY_MARKETS = [
 
 const TABS = ['Trending', 'Crypto', 'Politics', 'Tech', 'Economics'];
 
-function MarketsPage({ onViewMarket }) {
-  // const { markets, isLoading, isError } = useMarkets();
-  const markets = null;
-  const isLoading = false;
-  const isError = false;
-  
-  const [activeTab, setActiveTab] = useState('Trending');
-  
-  const displayMarkets = (markets && markets.length > 0) ? markets : DUMMY_MARKETS;
-  const filtered = activeTab === 'Trending' ? displayMarkets : displayMarkets.filter(m => m.category === activeTab);
-
-  if (isLoading) {
-    return (
-      <div style={{ textAlign: 'center', padding: '4rem' }}>
-        <div className="animate-pulse" style={{ fontSize: '1.2rem', color: 'var(--text-secondary)' }}>
-          🔍 Scanning Blockchain for Markets...
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <>
-      <header style={{ marginBottom: '2.5rem', textAlign: 'center' }}>
-        <h1 className="text-3xl font-bold animate-fade-in" style={{ marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>
-          Predict the Future
-        </h1>
-        <p className="text-secondary animate-fade-in" style={{ animationDelay: '0.05s', marginBottom: '2rem', maxWidth: '600px', margin: '0 auto 2rem', lineHeight: 1.6 }}>
-          The world's most accurate prediction market. Bet on crypto, politics, and tech outcomes on Ethereum Sepolia.
-        </p>
-        <div className="flex justify-center gap-3 animate-fade-in" style={{ overflowX: 'auto', paddingBottom: '0.5rem', animationDelay: '0.1s' }}>
-          {TABS.map(tab => (
-            <button key={tab} onClick={() => setActiveTab(tab)} style={{
-              padding: '0.5rem 1.25rem', borderRadius: 'var(--radius-full)', border: '1px solid',
-              borderColor: activeTab === tab ? 'var(--accent-blue)' : 'var(--border-color)',
-              background: activeTab === tab ? 'rgba(47,128,237,0.1)' : 'var(--bg-secondary)',
-              color: activeTab === tab ? 'var(--accent-blue)' : 'var(--text-secondary)',
-              fontWeight: 600, fontSize: '0.85rem', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.2s ease',
-            }}>{tab}</button>
-          ))}
-        </div>
-      </header>
-
-      {isError && (
-        <div style={{ marginBottom: '1.5rem', padding: '0.75rem', background: 'var(--color-no-light)', color: 'var(--color-no)', borderRadius: 'var(--radius-sm)', textAlign: 'center', fontSize: '0.85rem' }}>
-          ⚠️ Failed to connect to Sepolia. Showing cached markets.
-        </div>
-      )}
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem' }}>
-        {filtered.map((market, idx) => (
-          <div key={market.id} className="animate-fade-in" style={{ animationDelay: `${0.05 + idx * 0.05}s` }}>
-            <MarketCard market={market} onViewDetail={() => onViewMarket(market)} />
-          </div>
-        ))}
-      </div>
-    </>
-  );
-}
-
 function AppContent() {
   const [page, setPage] = useState('markets');
   
-  // Auto-fix for GitHub Pages subfolder routing
-  useEffect(() => {
-    if (window.location.pathname.includes('predict-market-demo') && page === '') {
-      setPage('markets');
-    }
-  }, [page]);
-
-  const [selectedInfluencer, setSelectedInfluencer] = useState(null);
-  const [selectedMarket, setSelectedMarket] = useState(null);
-  const [showWallet, setShowWallet] = useState(false);
-  const [showBridge, setShowBridge] = useState(false);
-
   const navigate = (p) => {
     setPage(p);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -110,32 +38,24 @@ function AppContent() {
 
   const renderPage = () => {
     return <div style={{ color: 'white', textAlign: 'center', marginTop: '100px' }}>
-      <h2>System Isolated</h2>
-      <p>All components disabled for tracking.</p>
+      <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>System Isolated</h2>
+      <p style={{ color: '#888' }}>All components disabled for tracking.</p>
+      <div style={{ marginTop: '2rem', padding: '1rem', border: '1px solid #333', display: 'inline-block' }}>
+        Status: Base React Environment OK
+      </div>
     </div>;
   };
 
-  const activeNavPage = ['influencer-login', 'influencer-signup', 'influencer-dashboard', 'create-market', 'profile'].includes(page)
-    ? (page === 'profile' ? 'influencers' : 'influencers') : page === 'market-detail' ? 'markets' : page;
-
   return (
-    <>
-      {/* <Navbar activePage={activeNavPage} onNavigate={navigate} onShowWallet={() => setShowWallet(true)} onShowBridge={() => setShowBridge(true)} /> */}
-      {/* <LivePriceTicker /> */}
-      <main className="container" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
-        {renderPage()}
-      </main>
-      {/* {showWallet && <WalletConnectModal onClose={() => setShowWallet(false)} />} */}
-      {/* {showBridge && <BridgeModal onClose={() => setShowBridge(false)} />} */}
-    </>
+    <main className="container">
+      {renderPage()}
+    </main>
   );
 }
 
 function App() {
   return (
-    // <AuthProvider>
-      <AppContent />
-    // </AuthProvider>
+    <AppContent />
   );
 }
 
