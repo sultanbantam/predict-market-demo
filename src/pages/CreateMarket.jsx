@@ -20,10 +20,10 @@ const CreateMarket = ({ onNavigate }) => {
   const [created, setCreated] = useState(null);
   const [copied, setCopied] = useState(false);
 
-  const { data: hash, isPending, writeContract, error: writeError } = useWriteContract();
+  const { data: txHash, isPending, writeContract, error: writeError } = useWriteContract();
   // const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
-  //   hash: hash || undefined,
-  //   query: { enabled: Boolean(hash) }
+  //   hash: txHash || undefined,
+  //   query: { enabled: Boolean(txHash) }
   // });
   const isConfirming = false;
   const isSuccess = false;
@@ -191,8 +191,8 @@ const CreateMarket = ({ onNavigate }) => {
             <p className="text-secondary text-sm" style={{ marginBottom: '1.5rem' }}>
               Your market is being deployed to Ethereum Sepolia. Please wait for the transaction to complete.
             </p>
-            {hash && (
-              <a href={`https://sepolia.etherscan.io/tx/${hash}`} target="_blank" rel="noreferrer" style={{ fontSize: '0.8rem', color: 'var(--accent-blue)' }}>
+            {txHash && (
+              <a href={`https://sepolia.etherscan.io/tx/${txHash}`} target="_blank" rel="noreferrer" style={{ fontSize: '0.8rem', color: 'var(--accent-blue)' }}>
                 View on Etherscan ↗
               </a>
             )}
@@ -201,7 +201,7 @@ const CreateMarket = ({ onNavigate }) => {
                 Error: {writeError.shortMessage || 'Transaction failed'}
               </div>
             )}
-            {!isConfirming && !hash && (
+            {!isConfirming && !txHash && (
               <button className="btn btn-secondary" onClick={() => setStep('form')} style={{ marginTop: '1rem' }}>
                 Cancel
               </button>

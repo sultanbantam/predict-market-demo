@@ -41,10 +41,10 @@ export const useUSDCAllowance = (spender) => {
  * Hook: Approve USDC spending
  */
 export const useUSDCApprove = () => {
-  const { writeContract, data: hash, isPending, isError, error } = useWriteContract();
+  const { writeContract, data: txHash, isPending, isError, error } = useWriteContract();
   // const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
-  //   hash: hash || undefined,
-  //   query: { enabled: Boolean(hash) }
+  //   hash: txHash || undefined,
+  //   query: { enabled: Boolean(txHash) }
   // });
   const isConfirming = false;
   const isSuccess = false;
@@ -58,17 +58,17 @@ export const useUSDCApprove = () => {
     });
   };
 
-  return { approve, isPending, isConfirming, isSuccess, isError, error, hash };
+  return { approve, isPending, isConfirming, isSuccess, isError, error, txHash };
 };
 
 /**
  * Hook: Claim faucet (Only works with Mock contracts)
  */
 export const useUSDCFaucet = () => {
-  const { writeContract, data: hash, isPending, isError, error } = useWriteContract();
+  const { writeContract, data: txHash, isPending, isError, error } = useWriteContract();
   // const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ 
-  //   hash: hash || undefined,
-  //   query: { enabled: Boolean(hash) }
+  //   hash: txHash || undefined,
+  //   query: { enabled: Boolean(txHash) }
   // });
   const isConfirming = false;
   const isSuccess = false;
