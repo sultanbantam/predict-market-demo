@@ -138,7 +138,7 @@ function AppContent() {
   return (
     <>
       {/* <Navbar activePage={activeNavPage} onNavigate={navigate} onShowWallet={() => setShowWallet(true)} onShowBridge={() => setShowBridge(true)} /> */}
-      <LivePriceTicker />
+      {/* <LivePriceTicker /> */}
       <main className="container" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
         {renderPage()}
       </main>
@@ -150,9 +150,9 @@ function AppContent() {
 
 function App() {
   return (
-    <AuthProvider>
+    // <AuthProvider>
       <AppContent />
-    </AuthProvider>
+    // </AuthProvider>
   );
 }
 
