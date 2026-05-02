@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useConnect } from 'wagmi';
 import { injected, walletConnect, coinbaseWallet } from 'wagmi/connectors';
@@ -7,8 +7,18 @@ const WalletConnectModal = ({ onClose }) => {
   const { isWalletConnected, walletAddress } = useAuth();
   const { connectors, connect, isPending, error: connectError } = useConnect();
   const [localError, setLocalError] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+  }, []);
 
   const shortAddr = (addr) => addr ? `${addr.slice(0, 6)}...${addr.slice(-4)}` : '';
+
+  const openMetaMaskApp = () => {
+    const url = window.location.href.replace(/^https?:\/\//, '');
+    window.location.href = `https://metamask.app.link/dapp/${url}`;
+  };
 
   const handleConnect = (connectorType) => {
     setLocalError('');
@@ -117,6 +127,19 @@ const WalletConnectModal = ({ onClose }) => {
                 )}
               </button>
             ))}
+
+            {isMobile && !window.ethereum && (
+              <button
+                onClick={openMetaMaskApp}
+                style={{
+                  width: '100%', padding: '0.85rem',
+                  background: 'rgba(255, 255, 255, 0.05)', border: '1px solid var(--accent-blue)',
+                  borderRadius: 'var(--radius-sm)', color: 'var(--accent-blue)',
+                  fontWeight: 600, fontSize: '0.85rem', marginTop: '0.5rem', cursor: 'pointer'
+                }}>
+                🦊 Open in MetaMask Browser
+              </button>
+            )}
 
             {(localError || connectError) && (
               <div style={{
