@@ -137,13 +137,13 @@ function AppContent() {
 
   return (
     <>
-      <Navbar activePage={activeNavPage} onNavigate={navigate} onShowWallet={() => setShowWallet(true)} onShowBridge={() => setShowBridge(true)} />
+      {/* <Navbar activePage={activeNavPage} onNavigate={navigate} onShowWallet={() => setShowWallet(true)} onShowBridge={() => setShowBridge(true)} /> */}
       <LivePriceTicker />
       <main className="container" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
         {renderPage()}
       </main>
-      {showWallet && <WalletConnectModal onClose={() => setShowWallet(false)} />}
-      {showBridge && <BridgeModal onClose={() => setShowBridge(false)} />}
+      {/* {showWallet && <WalletConnectModal onClose={() => setShowWallet(false)} />} */}
+      {/* {showBridge && <BridgeModal onClose={() => setShowBridge(false)} />} */}
     </>
   );
 }
